@@ -34,14 +34,6 @@
             overflow-x: hidden;
         }
 
-        /* Dark mode tweaks */
-        body.dark-mode {
-            --bg-color: #1a1a3d;
-            --text-color: #e0e0e0;
-            --primary-color: #ff00ff;
-            --secondary-color: #00ffff;
-        }
-
         /* Section styling with holographic effect */
         .section {
             padding: 80px 20px;
@@ -90,178 +82,6 @@
             0% { box-shadow: 0 0 10px var(--glow-color); }
             50% { box-shadow: 0 0 20px var(--glow-color); }
             100% { box-shadow: 0 0 10px var(--glow-color); }
-        }
-
-        /* Navbar with futuristic flair */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(26, 26, 61, 0.9));
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
-            border-bottom: 2px solid var(--primary-color);
-        }
-
-        .navbar .logo {
-            font-size: 2em;
-            font-weight: 700;
-            text-shadow: 0 0 10px var(--primary-color);
-            animation: logoGlow 3s infinite alternate;
-        }
-
-        @keyframes logoGlow {
-            from { text-shadow: 0 0 10px var(--primary-color); }
-            to { text-shadow: 0 0 20px var(--secondary-color); }
-        }
-
-        .navbar .nav-links {
-            list-style: none;
-            display: flex;
-        }
-
-        .navbar .nav-links li {
-            margin: 0 20px;
-        }
-
-        .navbar .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 1.2em;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .navbar .nav-links a:hover,
-        .navbar .nav-links a.active {
-            color: var(--highlight-color);
-            text-shadow: 0 0 15px var(--highlight-color);
-        }
-
-        .navbar .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: var(--highlight-color);
-            transition: width 0.3s ease;
-        }
-
-        .navbar .nav-links a:hover::after,
-        .navbar .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .theme-toggle button {
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--text-color);
-            padding: 8px 15px;
-            cursor: pointer;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        .theme-toggle button:hover {
-            background: var(--primary-color);
-            color: #000;
-            box-shadow: 0 0 20px var(--glow-color);
-        }
-
-        /* Hero section with cosmic vibes */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, #0a0a23, #1a1a3d),
-                        url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            background: var(--glass-bg);
-            padding: 50px;
-            border-radius: 20px;
-            border: 1px solid var(--primary-color);
-            box-shadow: 0 0 30px var(--glow-color);
-            backdrop-filter: blur(15px);
-            animation: float 4s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
-        }
-
-        .hero h1 {
-            font-size: 4.5em;
-            margin-bottom: 25px;
-            text-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--secondary-color);
-        }
-
-        .hero p {
-            font-size: 1.8em;
-            margin-bottom: 40px;
-            font-family: 'Roboto Mono', monospace;
-            text-shadow: 0 0 10px var(--glow-color);
-        }
-
-        .typing {
-            border-right: 4px solid var(--primary-color);
-            animation: blink 0.7s infinite, colorShift 3s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { border-color: var(--primary-color); }
-            50% { border-color: transparent; }
-        }
-
-        @keyframes colorShift {
-            0% { color: var(--primary-color); }
-            50% { color: var(--secondary-color); }
-            100% { color: var(--primary-color); }
-        }
-
-        /* Enhanced particle background */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: move 10s infinite linear, fade 10s infinite;
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        @keyframes move {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(150vw, 150vh) scale(0.5); }
-        }
-
-        @keyframes fade {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 0.8; }
         }
 
         /* About section with neon accents */
@@ -470,217 +290,8 @@
             font-family: 'Roboto Mono', monospace;
         }
 
-        /* Testimonials with holographic effect */
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 30px auto;
-        }
-
-        .testimonial {
-            background: var(--glass-bg);
-            border: 2px solid var(--primary-color);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.4s ease;
-            box-shadow: 0 0 20px var(--glow-color);
-        }
-
-        .testimonial:hover {
-            transform: rotate(2deg) scale(1.05);
-            box-shadow: 0 0 30px var(--glow-color);
-        }
-
-        .testimonial p {
-            font-style: italic;
-            font-family: 'Roboto Mono', monospace;
-            text-shadow: 0 0 5px var(--glow-color);
-        }
-
-        .testimonial cite {
-            display: block;
-            margin-top: 15px;
-            font-weight: 700;
-            color: var(--highlight-color);
-            text-shadow: 0 0 10px var(--highlight-color);
-        }
-
-        /* Game section with neon cards */
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(4, 120px);
-            gap: 15px;
-            justify-content: center;
-            margin: 30px auto;
-        }
-
-        .game-card {
-            width: 120px;
-            height: 120px;
-            background: var(--glass-bg);
-            border: 2px solid var(--primary-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2.5em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 10px;
-            box-shadow: 0 0 15px var(--glow-color);
-        }
-
-        .game-card:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px var(--glow-color);
-        }
-
-        .game-card.flipped {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: #000;
-        }
-
-        .game-card.matched {
-            background: var(--highlight-color);
-            box-shadow: 0 0 30px var(--highlight-color);
-        }
-
-        #reset-game {
-            margin-top: 25px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            box-shadow: 0 0 15px var(--glow-color);
-            transition: all 0.4s ease;
-        }
-
-        #reset-game:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px var(--glow-color);
-        }
-
-        /* Contact form with neon inputs */
-        .contact-form {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 20px;
-            background: var(--glass-bg);
-            border-radius: 15px;
-            border: 2px solid var(--primary-color);
-            box-shadow: 0 0 20px var(--glow-color);
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 15px;
-            margin: 15px 0;
-            border: 2px solid var(--primary-color);
-            border-radius: 10px;
-            background: var(--glass-bg);
-            color: var(--text-color);
-            font-family: 'Roboto Mono', monospace;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 20px var(--glow-color);
-            outline: none;
-        }
-
-        .contact-form button {
-            width: 100%;
-        }
-
-        /* Footer with neon border */
-        footer {
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(26, 26, 61, 0.9));
-            color: var(--text-color);
-            text-align: center;
-            padding: 25px;
-            border-top: 2px solid var(--primary-color);
-            box-shadow: 0 -5px 15px var(--glow-color);
-        }
-
-        /* Scroll-to-top button with spin */
-        #scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 15px 25px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            box-shadow: 0 0 15px var(--glow-color);
-            transition: all 0.4s ease;
-        }
-
-        #scroll-top:hover {
-            transform: rotate(360deg) scale(1.2);
-            box-shadow: 0 0 25px var(--glow-color);
-        }
-
-        /* Loader with cosmic spinner */
-        #loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1002;
-        }
-
-        .spinner {
-            width: 70px;
-            height: 70px;
-            border: 8px solid rgba(255, 255, 255, 0.2);
-            border-top: 8px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite, colorRotate 3s infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes colorRotate {
-            0% { border-top-color: var(--primary-color); }
-            50% { border-top-color: var(--secondary-color); }
-            100% { border-top-color: var(--primary-color); }
-        }
-
-        /* Responsive design with flair */
+        /* Responsive design */
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                padding: 25px;
-            }
-            .nav-links {
-                margin-top: 20px;
-            }
-            .nav-links li {
-                margin: 15px 0;
-            }
-            .hero h1 {
-                font-size: 2.5em;
-            }
-            .hero p {
-                font-size: 1.2em;
-            }
             .about-content {
                 flex-direction: column;
                 align-items: center;
@@ -689,50 +300,16 @@
                 margin-right: 0;
                 margin-bottom: 30px;
             }
-            .game-board {
-                grid-template-columns: repeat(2, 120px);
-            }
             .project-grid {
+                grid-template-columns: 1fr;
+            }
+            .blog-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Loader -->
-    <div id="loader">
-        <div class="spinner"></div>
-    </div>
-
-    <!-- Header with navigation -->
-    <header>
-        <nav class="navbar">
-            <div class="logo">Portfolio</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#game">Game</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="theme-toggle">
-                <button id="theme-btn">Dark Mode</button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero section -->
-    <section id="home" class="hero section">
-        <div class="hero-content">
-            <h1><span class="typing"></span></h1>
-            <p>Explore my cosmic creations and connect with me!</p>
-            <a href="#projects" class="btn">View Projects</a>
-        </div>
-        <div class="particles"></div>
-    </section>
-
     <!-- About section -->
     <section id="about" class="section">
         <h2>About Me</h2>
@@ -776,25 +353,6 @@
         </div>
     </section>
 
-    <!-- Projects section with my previous creations -->
-    <section id="projects" class="section">
-        <h2>Projects</h2>
-        <div class="project-grid">
-            <div class="project-card" data-title="Futuristic Portfolio" data-img="https://via.placeholder.com/300" data-description="A sleek, single-file portfolio with particle backgrounds, smooth animations, and a responsive design built with HTML, CSS, and JS." data-link="https://example.com">
-                <img src="https://via.placeholder.com/300" alt="Futuristic Portfolio">
-                <h3>Futuristic Portfolio</h3>
-                <p>A cosmic showcase of creativity and tech.</p>
-                <a href="#" class="btn">View Details</a>
-            </div>
-            <div class="project-card" data-title="Enhanced Futuristic Portfolio" data-img="https://via.placeholder.com/300" data-description="An upgraded portfolio with interactive games, modals, testimonials, and advanced styling, all packed into a single HTML file." data-link="https://example.com">
-                <img src="https://via.placeholder.com/300" alt="Enhanced Futuristic Portfolio">
-                <h3>Enhanced Futuristic Portfolio</h3>
-                <p>A next-level digital experience with flair.</p>
-                <a href="#" class="btn">View Details</a>
-            </div>
-        </div>
-    </section>
-
     <!-- Blog section -->
     <section id="blog" class="section">
         <h2>Blog</h2>
@@ -827,52 +385,30 @@
         </div>
     </section>
 
-    <!-- Testimonials section -->
-    <section id="testimonials" class="section">
-        <h2>Testimonials</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial">
-                <p>"[Your Name] delivered an outstanding project on time!"</p>
-                <cite>- Client 1</cite>
+    <!-- Projects section with specified projects -->
+    <section id="projects" class="section">
+        <h2>Projects</h2>
+        <div class="project-grid">
+            <div class="project-card" data-title="Albert Newton AI" data-img="https://via.placeholder.com/300" data-description="A super good AI that can predict your prompts and respond intelligently. 🧠⚡" data-link="https://albert-newton.vercel.app">
+                <img src="https://via.placeholder.com/300" alt="Albert Newton AI">
+                <h3>Albert Newton AI</h3>
+                <p>A super good AI that predicts and responds intelligently.</p>
+                <a href="#" class="btn">View Details</a>
             </div>
-            <div class="testimonial">
-                <p>"Highly skilled and professional developer."</p>
-                <cite>- Client 2</cite>
+            <div class="project-card" data-title="Chess vs AI" data-img="https://via.placeholder.com/300" data-description="A powerful chess AI that plays against you. Time to test your chess skills! ♟️🤖" data-link="https://chessvs-ai.vercel.app">
+                <img src="https://via.placeholder.com/300" alt="Chess vs AI">
+                <h3>Chess vs AI</h3>
+                <p>A powerful chess AI to challenge your skills.</p>
+                <a href="#" class="btn">View Details</a>
             </div>
-            <div class="testimonial">
-                <p>"A pleasure to work with, great attention to detail."</p>
-                <cite>- Client 3</cite>
+            <div class="project-card" data-title="Image Generator Silk" data-img="https://via.placeholder.com/300" data-description="A fast Unsplash image generator that delivers quick results. 🎨🖼️" data-link="https://img-generator-silk.vercel.app">
+                <img src="https://via.placeholder.com/300" alt="Image Generator Silk">
+                <h3>Image Generator Silk</h3>
+                <p>A fast Unsplash image generator with quick results.</p>
+                <a href="#" class="btn">View Details</a>
             </div>
         </div>
     </section>
-
-    <!-- Game section -->
-    <section id="game" class="section">
-        <h2>Memory Game</h2>
-        <div class="game-board">
-            <!-- Game cards generated by JS -->
-        </div>
-        <button id="reset-game">Reset Game</button>
-    </section>
-
-    <!-- Contact section -->
-    <section id="contact" class="section">
-        <h2>Contact Me</h2>
-        <form class="contact-form">
-            <input type="text" placeholder="Name" required>
-            <input type="email" placeholder="Email" required>
-            <textarea placeholder="Message" rows="5" required></textarea>
-            <button type="submit" class="btn">Send Message</button>
-        </form>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 [Your Name]. All rights reserved.</p>
-    </footer>
-
-    <!-- Scroll-to-top button -->
-    <button id="scroll-top">Top</button>
 
     <!-- Modal for project details -->
     <div class="modal" id="project-modal">
@@ -886,66 +422,13 @@
     </div>
 
     <script>
-        // Hide loader when page loads
-        window.addEventListener('load', () => {
-            document.getElementById('loader').style.display = 'none';
-        });
-
-        // Smooth scrolling for nav links
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                window.scrollTo({
-                    top: targetSection.offsetTop - 60,
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Typing effect for hero section
-        const typingText = "Welcome to My Cosmic Portfolio";
-        const typingElement = document.querySelector('.typing');
-        let index = 0;
-        function type() {
-            if (index < typingText.length) {
-                typingElement.textContent += typingText.charAt(index);
-                index++;
-                setTimeout(type, 100);
-            }
-        }
-        type();
-
-        // Create enhanced particles
-        function createParticles() {
-            const particlesContainer = document.querySelector('.particles');
-            for (let i = 0; i < 200; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                const size = Math.random() * 6 + 2;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${Math.random() * 100}vw`;
-                particle.style.top = `${Math.random() * 100}vh`;
-                particle.style.animationDuration = `${5 + Math.random() * 10}s`;
-                particlesContainer.appendChild(particle);
-            }
-        }
-        createParticles();
-
-        // Intersection Observer for animations and nav
+        // Intersection Observer for section animations
         const sections = document.querySelectorAll('.section');
-        const navLinks = document.querySelectorAll('.nav-links a');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    const id = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-                    });
-                    if (id === 'about') {
+                    if (entry.target.id === 'about') {
                         const progressBars = entry.target.querySelectorAll('.progress');
                         progressBars.forEach(bar => {
                             const width = bar.getAttribute('style').match(/width:\s*(\d+)%/)[1];
@@ -959,22 +442,6 @@
             });
         }, { threshold: 0.5 });
         sections.forEach(section => observer.observe(section));
-
-        // Dark mode toggle
-        const themeBtn = document.getElementById('theme-btn');
-        themeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            themeBtn.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
-        });
-
-        // Scroll-to-top button
-        const scrollTopBtn = document.getElementById('scroll-top');
-        window.addEventListener('scroll', () => {
-            scrollTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
-        });
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
 
         // Modal functionality
         const modal = document.getElementById('project-modal');
@@ -1000,87 +467,6 @@
         window.addEventListener('click', (e) => {
             if (e.target === modal) modal.style.display = 'none';
         });
-
-        // Contact form validation
-        const form = document.querySelector('.contact-form');
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = form.querySelector('input[type="text"]').value.trim();
-            const email = form.querySelector('input[type="email"]').value.trim();
-            const message = form.querySelector('textarea').value.trim();
-            if (!name || !email || !message) {
-                alert('Please fill in all fields');
-                return;
-            }
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                alert('Please enter a valid email');
-                return;
-            }
-            alert('Message sent! (This is a demo)');
-            form.reset();
-        });
-
-        // Memory game logic
-        const gameBoard = document.querySelector('.game-board');
-        const resetBtn = document.getElementById('reset-game');
-        let cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F'];
-        let selectedCards = [];
-        let matchedPairs = 0;
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        function createGame() {
-            gameBoard.innerHTML = '';
-            matchedPairs = 0;
-            selectedCards = [];
-            const shuffledCards = shuffle([...cards]);
-            shuffledCards.forEach(card => {
-                const cardElement = document.createElement('div');
-                cardElement.className = 'game-card';
-                cardElement.dataset.value = card;
-                cardElement.addEventListener('click', handleCardClick);
-                gameBoard.appendChild(cardElement);
-            });
-        }
-
-        function handleCardClick(e) {
-            const card = e.target;
-            if (selectedCards.length < 2 && !card.classList.contains('flipped') && !card.classList.contains('matched')) {
-                card.classList.add('flipped');
-                card.textContent = card.dataset.value;
-                selectedCards.push(card);
-                if (selectedCards.length === 2) {
-                    setTimeout(checkMatch, 500);
-                }
-            }
-        }
-
-        function checkMatch() {
-            const [card1, card2] = selectedCards;
-            if (card1.dataset.value === card2.dataset.value) {
-                card1.classList.add('matched');
-                card2.classList.add('matched');
-                matchedPairs++;
-                if (matchedPairs === cards.length / 2) {
-                    setTimeout(() => alert('You won!'), 500);
-                }
-            } else {
-                card1.classList.remove('flipped');
-                card2.classList.remove('flipped');
-                card1.textContent = '';
-                card2.textContent = '';
-            }
-            selectedCards = [];
-        }
-
-        resetBtn.addEventListener('click', createGame);
-        createGame();
     </script>
 </body>
 </html>
