@@ -5,157 +5,409 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Futuristic Portfolio</title>
     <style>
-        /* CSS - Aiming for visual complexity and animations */
+        /* Global styles for resetting defaults and setting up the base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
 
+        /* Define CSS variables for theming */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --primary-color: #333333;
+            --secondary-color: #555555;
+            --highlight-color: #ffcc00;
+        }
+
+        /* Apply theme variables to body */
         body {
-            background: #0a0a23;
-            color: #ffffff;
-            overflow-x: hidden;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background 0.3s, color 0.3s;
         }
 
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
+        /* Dark mode styles */
+        body.dark-mode {
+            --bg-color: #333333;
+            --text-color: #ffffff;
+            --primary-color: #555555;
+            --secondary-color: #777777;
         }
 
+        /* General section styling */
+        .section {
+            padding: 60px 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Button styles with glow effect */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s;
+        }
+
+        .btn:hover::after {
+            transform: scale(1);
+        }
+
+        /* Navbar styles */
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px;
+            background: var(--primary-color);
+            color: #ffffff;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 10;
-            transition: all 0.3s ease;
+            padding: 10px 20px;
+            z-index: 1000;
         }
 
-        .navbar.scrolled {
-            background: rgba(0, 0, 0, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 255, 255, 0.3);
+        .navbar .logo {
+            font-size: 1.5em;
+            font-weight: bold;
         }
 
-        .navbar a {
-            color: #00ffff;
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar .nav-links li {
+            margin: 0 15px;
+        }
+
+        .navbar .nav-links a {
+            color: #ffffff;
             text-decoration: none;
-            margin: 0 20px;
-            font-size: 1.2em;
-            transition: all 0.3s ease;
+            transition: color 0.3s;
         }
 
-        .navbar a:hover {
-            color: #ff00ff;
-            text-shadow: 0 0 10px #ff00ff;
+        .navbar .nav-links a:hover,
+        .navbar .nav-links a.active {
+            color: var(--highlight-color);
         }
 
+        .theme-toggle button {
+            background: none;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Hero section styles */
         .hero {
             height: 100vh;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            color: #ffffff;
             text-align: center;
-            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 10px;
         }
 
         .hero h1 {
-            font-size: 4em;
+            font-size: 3em;
             margin-bottom: 20px;
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-            }
-            to {
-                text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-            }
         }
 
         .hero p {
             font-size: 1.5em;
-            max-width: 600px;
             margin-bottom: 30px;
         }
 
-        .btn {
-            padding: 15px 30px;
-            background: transparent;
-            border: 2px solid #00ffff;
-            color: #00ffff;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .typing {
+            border-right: 2px solid #ffffff;
+            animation: blink 0.7s infinite;
         }
 
-        .btn:hover {
-            background: #00ffff;
-            color: #0a0a23;
-            box-shadow: 0 0 20px #00ffff;
+        @keyframes blink {
+            0% { border-color: #ffffff; }
+            50% { border-color: transparent; }
+            100% { border-color: #ffffff; }
         }
 
-        .section {
-            padding: 100px 20px;
-            min-height: 100vh;
+        /* Particle background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: move 15s infinite linear;
+        }
+
+        @keyframes move {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(100vw, 100vh); opacity: 0; }
+        }
+
+        /* About section styles */
+        .about-content {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: space-around;
+            align-items: flex-start;
+            max-width: 1000px;
+            margin: 20px auto;
         }
 
+        .bio {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .skills {
+            flex: 1;
+        }
+
+        .skill {
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            background: #eeeeee;
+            border-radius: 5px;
+            height: 10px;
+            margin-top: 5px;
+        }
+
+        .progress {
+            background: var(--primary-color);
+            height: 100%;
+            border-radius: 5px;
+            width: 0;
+            transition: width 1s ease;
+        }
+
+        /* Projects section styles */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            width: 100%;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 20px auto;
         }
 
         .project-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
         .project-card img {
             width: 100%;
-            height: 200px;
+            height: 150px;
             object-fit: cover;
-            border-radius: 5px;
         }
 
-        .contact-form {
-            max-width: 600px;
+        .project-card h3 {
+            padding: 10px;
+        }
+
+        .project-card p {
+            padding: 0 10px 10px;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .modal-content {
+            background: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+
+        /* Blog section styles */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 20px auto;
+        }
+
+        .blog-post {
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .blog-post h3 {
+            margin-bottom: 10px;
+        }
+
+        .blog-post p {
+            margin-bottom: 10px;
+        }
+
+        /* Testimonials section styles */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 20px auto;
+        }
+
+        .testimonial {
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .testimonial p {
+            font-style: italic;
+        }
+
+        .testimonial cite {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Game section styles */
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        .game-card {
+            width: 100px;
+            height: 100px;
+            background: #eeeeee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .game-card.flipped {
+            background: #ffffff;
+        }
+
+        .game-card.matched {
+            background: #00ff00;
+        }
+
+        #reset-game {
+            margin-top: 20px;
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Contact form styles */
+        .contact-form {
+            max-width: 500px;
+            margin: 20px auto;
         }
 
         .contact-form input,
         .contact-form textarea {
             width: 100%;
-            padding: 15px;
+            padding: 10px;
             margin: 10px 0;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #00ffff;
-            color: #ffffff;
+            border: 1px solid #dddddd;
             border-radius: 5px;
         }
 
@@ -163,165 +415,489 @@
             width: 100%;
         }
 
+        /* Footer styles */
         footer {
-            padding: 20px;
+            background: var(--primary-color);
+            color: #ffffff;
             text-align: center;
-            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
         }
 
-        /* Responsive Design */
+        /* Scroll-to-top button */
+        #scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* Loader styles */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1002;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #eeeeee;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive design */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5em;
+            .navbar {
+                flex-direction: column;
+                padding: 20px;
             }
-            .hero p {
-                font-size: 1em;
+            .nav-links {
+                margin-top: 10px;
             }
-            .navbar a {
-                font-size: 1em;
-                margin: 0 10px;
+            .nav-links li {
+                margin: 10px 0;
+            }
+            .about-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .bio {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            .game-board {
+                grid-template-columns: repeat(2, 100px);
             }
         }
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
-    <nav class="navbar">
-        <div class="logo">Portfolio</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
+    <!-- Loader -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
 
-    <section id="home" class="hero">
-        <h1>Welcome to My World</h1>
-        <p>A futuristic portfolio showcasing creativity and technology.</p>
-        <button class="btn" onclick="scrollToSection('projects')">Explore</button>
+    <!-- Header with navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#game">Game</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <button id="theme-btn">Dark Mode</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero section -->
+    <section id="home" class="hero section">
+        <div class="hero-content">
+            <h1><span class="typing"></span></h1>
+            <p>Explore my work and get in touch</p>
+            <a href="#projects" class="btn">View Projects</a>
+        </div>
+        <div class="particles"></div>
     </section>
 
+    <!-- About section -->
+    <section id="about" class="section">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="bio">
+                <p>Hi, I'm [Your Name], a passionate web developer with experience in creating dynamic and responsive websites. I love to learn new technologies and apply them to real-world projects.</p>
+            </div>
+            <div class="skills">
+                <h3>Skills</h3>
+                <div class="skill">
+                    <span>HTML5</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <span>CSS3</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%;"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <span>JavaScript</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 80%;"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <span>React</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 75%;"></div>
+                    </div>
+                </div>
+                <div class="skill">
+                    <span>Node.js</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects section -->
     <section id="projects" class="section">
         <h2>Projects</h2>
         <div class="project-grid">
-            <div class="project-card">
-                <img src="https://via.placeholder.com/300x200" alt="Project 1">
+            <div class="project-card" data-title="Project 1" data-img="https://via.placeholder.com/300" data-description="A web application built with React and Node.js." data-link="https://example.com">
+                <img src="https://via.placeholder.com/300" alt="Project 1">
                 <h3>Project 1</h3>
-                <p>Innovative web application with AI integration.</p>
+                <p>A brief description of the project.</p>
+                <a href="#" class="btn">View Details</a>
             </div>
-            <div class="project-card">
-                <img src="https://via.placeholder.com/300x200" alt="Project 2">
+            <div class="project-card" data-title="Project 2" data-img="https://via.placeholder.com/300" data-description="An e-commerce site with payment integration." data-link="https://example.com">
+                <img src="https://via.placeholder.com/300" alt="Project 2">
                 <h3>Project 2</h3>
-                <p>Interactive game built with modern JavaScript.</p>
+                <p>Another cool project I worked on.</p>
+                <a href="#" class="btn">View Details</a>
             </div>
-            <div class="project-card">
-                <img src="https://via.placeholder.com/300x200" alt="Project 3">
+            <div class="project-card" data-title="Project 3" data-img="https://via.placeholder.com/300" data-description="A responsive portfolio website." data-link="https://example.com">
+                <img src="https://via.placeholder.com/300" alt="Project 3">
                 <h3>Project 3</h3>
-                <p>Data visualization dashboard.</p>
+                <p>Showcasing my design skills.</p>
+                <a href="#" class="btn">View Details</a>
+            </div>
+            <div class="project-card" data-title="Project 4" data-img="https://via.placeholder.com/300" data-description="A game built with JavaScript." data-link="https://example.com">
+                <img src="https://via.placeholder.com/300" alt="Project 4">
+                <h3>Project 4</h3>
+                <p>Interactive and fun project.</p>
+                <a href="#" class="btn">View Details</a>
+            </div>
+            <div class="project-card" data-title="Project 5" data-img="https://via.placeholder.com/300" data-description="A dashboard with real-time data." data-link="https://example.com">
+                <img src="https://via.placeholder.com/300" alt="Project 5">
+                <h3>Project 5</h3>
+                <p>Data visualization project.</p>
+                <a href="#" class="btn">View Details</a>
+            </div>
+            <div class="project-card" data-title="Project 6" data-img="https://via.placeholder.com/300" data-description="A mobile-friendly app prototype." data-link="https://example.com">
+                <img src="https://via.placeholder.com/300" alt="Project 6">
+                <h3>Project 6</h3>
+                <p>Designed for all devices.</p>
+                <a href="#" class="btn">View Details</a>
             </div>
         </div>
     </section>
 
+    <!-- Blog section -->
+    <section id="blog" class="section">
+        <h2>Blog</h2>
+        <div class="blog-grid">
+            <article class="blog-post">
+                <h3>Learning JavaScript in 2025</h3>
+                <p>Thoughts on the latest trends in JavaScript development.</p>
+                <a href="#" class="btn">Read More</a>
+            </article>
+            <article class="blog-post">
+                <h3>Building Responsive Websites</h3>
+                <p>Tips and tricks for responsive design.</p>
+                <a href="#" class="btn">Read More</a>
+            </article>
+            <article class="blog-post">
+                <h3>Why I Love Coding</h3>
+                <p>My journey as a developer.</p>
+                <a href="#" class="btn">Read More</a>
+            </article>
+            <article class="blog-post">
+                <h3>Top 10 CSS Tricks</h3>
+                <p>Enhance your styling skills.</p>
+                <a href="#" class="btn">Read More</a>
+            </article>
+            <article class="blog-post">
+                <h3>Exploring Web Animations</h3>
+                <p>How to make your site dynamic.</p>
+                <a href="#" class="btn">Read More</a>
+            </article>
+        </div>
+    </section>
+
+    <!-- Testimonials section -->
+    <section id="testimonials" class="section">
+        <h2>Testimonials</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial">
+                <p>"[Your Name] delivered an outstanding project on time!"</p>
+                <cite>- Client 1</cite>
+            </div>
+            <div class="testimonial">
+                <p>"Highly skilled and professional developer."</p>
+                <cite>- Client 2</cite>
+            </div>
+            <div class="testimonial">
+                <p>"A pleasure to work with, great attention to detail."</p>
+                <cite>- Client 3</cite>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game section -->
+    <section id="game" class="section">
+        <h2>Memory Game</h2>
+        <div class="game-board">
+            <!-- Game cards generated by JS -->
+        </div>
+        <button id="reset-game">Reset Game</button>
+    </section>
+
+    <!-- Contact section -->
     <section id="contact" class="section">
         <h2>Contact Me</h2>
-        <form class="contact-form" onsubmit="handleSubmit(event)">
+        <form class="contact-form">
             <input type="text" placeholder="Name" required>
             <input type="email" placeholder="Email" required>
             <textarea placeholder="Message" rows="5" required></textarea>
-            <button class="btn" type="submit">Send Message</button>
+            <button type="submit" class="btn">Send Message</button>
         </form>
     </section>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Futuristic Portfolio. All rights reserved.</p>
+        <p>&copy; 2025 [Your Name]. All rights reserved.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- Scroll-to-top button -->
+    <button id="scroll-top">Top</button>
+
+    <!-- Modal for project details -->
+    <div class="modal" id="project-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 id="modal-title"></h3>
+            <img id="modal-img" src="" alt="">
+            <p id="modal-description"></p>
+            <a id="modal-link" href="#" target="_blank" class="btn">View Project</a>
+        </div>
+    </div>
+
     <script>
-        // JavaScript - Interactive features and animations
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 100, density: { enable: true, value_area: 800 } },
-                color: { value: '#00ffff' },
-                shape: { type: 'circle' },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 150, color: '#00ffff', opacity: 0.4, width: 1 },
-                move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, out_mode: 'out' }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
-            },
-            retina_detect: true
+        // Hide loader when page loads
+        window.addEventListener('load', () => {
+            document.getElementById('loader').style.display = 'none';
         });
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Smooth scroll
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Form submission
-        function handleSubmit(event) {
-            event.preventDefault();
-            alert('Message sent! (This is a demo)');
-            event.target.reset();
-        }
-
-        // Project card animations
-        const cards = document.querySelectorAll('.project-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'scale(1.05)';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'scale(1)';
+        // Smooth scrolling for nav links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                window.scrollTo({
+                    top: targetSection.offsetTop - 60,
+                    behavior: 'smooth'
+                });
             });
         });
 
-        // Typing effect for hero
-        const heroText = document.querySelector('.hero h1');
-        const text = heroText.textContent;
-        heroText.textContent = '';
-        let i = 0;
+        // Typing effect for hero section
+        const typingText = "Welcome to My Portfolio";
+        const typingElement = document.querySelector('.typing');
+        let index = 0;
         function type() {
-            if (i < text.length) {
-                heroText.textContent += text.charAt(i);
-                i++;
+            if (index < typingText.length) {
+                typingElement.textContent += typingText.charAt(index);
+                index++;
                 setTimeout(type, 100);
             }
         }
         type();
 
-        // Scroll reveal
+        // Create particles for hero background
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            for (let i = 0; i < 150; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                particle.style.animationDuration = `${5 + Math.random() * 15}s`;
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Intersection Observer for section animations and active nav
         const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-links a');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                    });
+                    if (id === 'about') {
+                        const progressBars = entry.target.querySelectorAll('.progress');
+                        progressBars.forEach(bar => {
+                            const width = bar.getAttribute('style').match(/width:\s*(\d+)%/)[1];
+                            bar.style.width = '0';
+                            setTimeout(() => {
+                                bar.style.width = `${width}%`;
+                            }, 100);
+                        });
+                    }
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.5 });
+        sections.forEach(section => observer.observe(section));
 
-        sections.forEach(section => {
-            section.style.opacity = 0;
-            section.style.transform = 'translateY(50px)';
-            section.style.transition = 'all 0.5s ease';
-            observer.observe(section);
+        // Dark mode toggle
+        const themeBtn = document.getElementById('theme-btn');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            themeBtn.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
         });
+
+        // Scroll-to-top button
+        const scrollTopBtn = document.getElementById('scroll-top');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+        });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('project-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalImg = document.getElementById('modal-img');
+        const modalDescription = document.getElementById('modal-description');
+        const modalLink = document.getElementById('modal-link');
+        const closeBtn = document.querySelector('.close-btn');
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                modalTitle.textContent = card.getAttribute('data-title');
+                modalImg.src = card.getAttribute('data-img');
+                modalDescription.textContent = card.getAttribute('data-description');
+                modalLink.href = card.getAttribute('data-link');
+                modal.style.display = 'flex';
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
+
+        // Contact form validation
+        const form = document.querySelector('.contact-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = form.querySelector('input[type="text"]').value.trim();
+            const email = form.querySelector('input[type="email"]').value.trim();
+            const message = form.querySelector('textarea').value.trim();
+            if (!name || !email || !message) {
+                alert('Please fill in all fields');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Please enter a valid email');
+                return;
+            }
+            alert('Message sent! (This is a demo)');
+            form.reset();
+        });
+
+        // Memory game logic
+        const gameBoard = document.querySelector('.game-board');
+        const resetBtn = document.getElementById('reset-game');
+        let cards = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F'];
+        let selectedCards = [];
+        let matchedPairs = 0;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function createGame() {
+            gameBoard.innerHTML = '';
+            matchedPairs = 0;
+            selectedCards = [];
+            const shuffledCards = shuffle([...cards]);
+            shuffledCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'game-card';
+                cardElement.dataset.value = card;
+                cardElement.addEventListener('click', handleCardClick);
+                gameBoard.appendChild(cardElement);
+            });
+        }
+
+        function handleCardClick(e) {
+            const card = e.target;
+            if (selectedCards.length < 2 && !card.classList.contains('flipped') && !card.classList.contains('matched')) {
+                card.classList.add('flipped');
+                card.textContent = card.dataset.value;
+                selectedCards.push(card);
+                if (selectedCards.length === 2) {
+                    setTimeout(checkMatch, 500);
+                }
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = selectedCards;
+            if (card1.dataset.value === card2.dataset.value) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                if (matchedPairs === cards.length / 2) {
+                    setTimeout(() => alert('You won!'), 500);
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.textContent = '';
+                card2.textContent = '';
+            }
+            selectedCards = [];
+        }
+
+        resetBtn.addEventListener('click', createGame);
+        createGame();
     </script>
 </body>
 </html>
